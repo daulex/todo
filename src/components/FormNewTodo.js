@@ -1,27 +1,31 @@
 const FormNewTodo = ({ setNewTodo, addTodo, newTodo }) => {
-    const handleKeyPress = (e) => {
+    const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-          addTodo();
+            addTodo();
         }
     };
-    
+
     return (
         <div className="mt-2 flex">
+            <label htmlFor="newTodo" className="sr-only">
+                Enter a new todo
+            </label>
             <input
                 className="w-full mb-2 px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring focus:border-blue-300 h-10"
                 type="text"
                 value={newTodo}
                 onChange={(e) => setNewTodo(e.target.value)}
-                onKeyPress={handleKeyPress}
+                onKeyDown={handleKeyDown}
                 placeholder="Enter a new todo"
             />
             <button
+                type="button"
                 className="bg-blue-500 text-white px-4 py-2 rounded ml-2 h-10"
                 onClick={addTodo}
             >
                 Add
             </button>
-    </div>
+        </div>
     )
 };
 export default FormNewTodo;
