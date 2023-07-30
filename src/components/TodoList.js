@@ -23,13 +23,22 @@ const TodoList = () => {
 
   const addTodo = () => {
     if (newTodo.trim() !== '') {
-      setTodos([...todos, newTodo]);
+      setTodos([...todos, {
+        title: newTodo,
+        completed: false
+      }]);
       setNewTodo('');
     }
   };
 
   const removeTodo = (index) => {
     const updatedTodos = todos.filter((_, i) => i !== index);
+    setTodos(updatedTodos);
+  };
+
+  const handleToggleCompleted = (index) => {
+    const updatedTodos = [...todos];
+    updatedTodos[index].completed = !updatedTodos[index].completed;
     setTodos(updatedTodos);
   };
 
@@ -43,6 +52,7 @@ const TodoList = () => {
                     index={index} 
                     todo={todo} 
                     removeTodo={removeTodo} 
+                    toggleCompleted={handleToggleCompleted}
                     />
         ))}
         </ul>
