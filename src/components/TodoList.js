@@ -36,6 +36,12 @@ const TodoList = () => {
         setTodos(updatedTodos);
     };
 
+    const editTodo = (index, newTitle) => {
+        const updatedTodos = [...todos];
+        updatedTodos[index].title = newTitle;
+        setTodos(updatedTodos);
+    };
+
     const handleToggleCompleted = (index) => {
         const updatedTodos = [...todos];
         updatedTodos[index].completed = !updatedTodos[index].completed;
@@ -44,7 +50,11 @@ const TodoList = () => {
 
     return (
         <div className="mt-2">
-            <FormNewTodo newTodo={newTodo} setNewTodo={setNewTodo} addTodo={addTodo} />
+            <FormNewTodo 
+                newTodo={newTodo} 
+                setNewTodo={setNewTodo} 
+                addTodo={addTodo}
+            />
             <ul className="mt-4">
                 {todos.map((todo, index) => (
                     <TodoListItem
@@ -52,6 +62,7 @@ const TodoList = () => {
                         index={index}
                         todo={todo}
                         removeTodo={removeTodo}
+                        editTodo={editTodo}
                         toggleCompleted={handleToggleCompleted}
                     />
                 ))}
