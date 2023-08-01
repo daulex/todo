@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const TodoListItem = ({ index, todo, removeTodo, editTodo, toggleCompleted }) => {
+const TodoListItem = ({ id, todo, removeTodo, editTodo, toggleCompleted }) => {
     const { title, completed } = todo;
     const [isEditing, setIsEditing] = useState(false);
     const [editedTitle, setEditedTitle] = useState(title);
@@ -13,7 +13,7 @@ const TodoListItem = ({ index, todo, removeTodo, editTodo, toggleCompleted }) =>
     }, [isEditing]);
 
     const handleCheckboxChange = () => {
-        toggleCompleted(index);
+        toggleCompleted(id);
     };
 
     const handleEditClick = () => {
@@ -36,7 +36,7 @@ const TodoListItem = ({ index, todo, removeTodo, editTodo, toggleCompleted }) =>
 
     const saveEditedTodo = () => {
         if (editedTitle.trim() !== '') {
-            editTodo(index, editedTitle);
+            editTodo(id, editedTitle);
             setIsEditing(false);
         }
     };
@@ -68,7 +68,7 @@ const TodoListItem = ({ index, todo, removeTodo, editTodo, toggleCompleted }) =>
             </button>
             <button
                 className="ml-2 text-xs font-medium text-red-800"
-                onClick={() => removeTodo(index)}
+                onClick={() => removeTodo(id)}
                 title="Remove"
             >
                 x
