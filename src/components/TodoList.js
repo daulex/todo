@@ -4,7 +4,7 @@ import TodoListItem from './TodoListItem';
 import FilterTabs from './FilterTabs';
 
 const generateRandomId = () => {
-  return Math.random().toString(36).substr(2, 9); // A simple random string generator
+    return Math.random().toString(36).substr(2, 9); // A simple random string generator
 };
 
 const TodoList = () => {
@@ -83,6 +83,13 @@ const TodoList = () => {
         return true; // Show all todos for the 'all' filter
     });
 
+    const clearCompletedTodos = () => {
+        const updatedTodos = todos.filter((todo) => !todo.completed);
+        setTodos(updatedTodos);
+        // Check if the current filter is still valid after clearing completed todos
+        setFilterValid(updatedTodos.some((todo) => todo.completed) || updatedTodos.some((todo) => !todo.completed));
+    };
+
     useEffect(() => {
         // Check if the current filter is still valid when todos change
         setFilterValid(filteredTodos.length > 0 || (filter === 'all' && todos.length > 0));
@@ -113,6 +120,14 @@ const TodoList = () => {
                     />
                 ))}
             </ul>
+            {hasCompletedTodos && (
+                <button
+                    className="px-2 py-1 text-xs font-medium text-white bg-gray-400 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300 active:bg-red-700 align-right"
+                    onClick={clearCompletedTodos}
+                >
+                    Remove all completed todos
+                </button>
+            )}
         </div>
     );
 };
